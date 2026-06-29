@@ -1,5 +1,7 @@
+import Notes from "./components/Notes";
+
 const App = () => {
-  return <div></div>;
+  return <Notes />;
 };
 
 export default App;
