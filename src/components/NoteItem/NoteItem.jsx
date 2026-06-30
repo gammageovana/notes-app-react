@@ -1,5 +1,5 @@
 import styles from "./NoteItem.module.css";
-const NoteItem = ({ note }) => {
+const NoteItem = ({ note, onDelete, onEdit }) => {
   const formattedDate = new Date(note.createdAt).toLocaleDateString("id-ID", {
     day: "numeric",
     month: "long",
@@ -14,8 +14,12 @@ const NoteItem = ({ note }) => {
       <p>{formattedDate}</p>
 
       <div className={styles.buttonGroup}>
-        <button type="button">Edit</button>
-        <button type="button">Delete</button>
+        <button type="button" onClick={() => onEdit(note.id)}>
+          Edit
+        </button>
+        <button type="button" onClick={() => onDelete(note.id)}>
+          Delete
+        </button>
       </div>
     </>
   );
