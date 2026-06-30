@@ -1,9 +1,15 @@
 import styles from "./SearchBar.module.css";
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch, keyword }) => {
   return (
     <section className={styles.searchSection}>
-      <input type="text" className={styles.inputSearch} placeholder="🔍 Find notes..." />
+      <input
+        type="text"
+        className={styles.inputSearch}
+        placeholder="🔍 Find notes..."
+        value={keyword}
+        onChange={(e) => onSearch(e.target.value)}
+      />
     </section>
   );
 };

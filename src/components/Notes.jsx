@@ -8,6 +8,11 @@ import { useState } from "react";
 const Notes = () => {
   const [notes, setNotes] = useState(initialNotes);
   const [editedNote, setEditedNote] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchKeyword.toLowerCase()),
+  );
 
   const handleSave = (formData) => {
     const data = {
@@ -43,15 +48,19 @@ const Notes = () => {
     setEditedNote(null);
   };
 
+  const handleSearch = (keyword) => {
+    setSearchKeyword(keyword);
+  };
+
   return (
     <div className={styles.notesContainer}>
       <h1 className={styles.title}>My Notes</h1>
 
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} keyword={searchKeyword} />
 
       <NoteForm onSave={handleSave} editedNote={editedNote} onCancel={handleCancel} />
 
-      <NoteList notes={notes} onDelete={handleDelete} onEdit={handleEdit} />
+      <NoteList notes={filteredNotes} onDelete={handleDelete} onEdit={handleEdit} />
     </div>
   );
 };
