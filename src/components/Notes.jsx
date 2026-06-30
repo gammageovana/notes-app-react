@@ -3,12 +3,26 @@ import NoteList from "./NoteList/NoteList";
 import styles from "./Notes.module.css";
 import SearchBar from "./SearchBar/SearchBar";
 import { initialNotes } from "../notes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Notes = () => {
-  const [notes, setNotes] = useState(initialNotes);
+  const [notes, setNotes] = useState(() => {
+    const storage = localStorage.getItem("notes");
+
+    if (storage) {
+      return JSON.parse(storage);
+    }
+
+    localStorage.setItem("notes", JSON.stringify(initialNotes));
+    return initialNotes;
+  });
+
   const [editedNote, setEditedNote] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchKeyword.toLowerCase()),
