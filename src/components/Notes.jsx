@@ -74,7 +74,11 @@ const Notes = () => {
 
       <NoteForm onSave={handleSave} editedNote={editedNote} onCancel={handleCancel} />
 
-      <NoteList notes={filteredNotes} onDelete={handleDelete} onEdit={handleEdit} />
+      {notes.length > 0 ? (
+        <NoteList notes={filteredNotes} onDelete={handleDelete} onEdit={handleEdit} />
+      ) : (
+        <p className={styles.emptyNotes}>Notes is empty</p>
+      )}
     </div>
   );
 };
